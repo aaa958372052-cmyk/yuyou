@@ -18,20 +18,20 @@ function showPage(index) {
 /* ======================
    控制步骤条显示 / 高亮
 ====================== */
-function handleStepsBar(pageIndex) {
-  // 只在 6-9 显示
-  if (pageIndex >= 6 && pageIndex <= 9) {
+function handleStepsBar(index) {
+  const stepsBar = document.getElementById('stepsBar');
+
+  // 0 = 温馨提醒
+  // 1 = 胸部
+  // 2 = 年龄
+  // 3 = 臀
+  // 4 = 姿势
+  // 5 = 系统匹配中
+  // 6 = 最终页
+
+  if (index >= 1 && index <= 4) {
     stepsBar.classList.add('show');
-
-    const stepIndex = pageIndex - 6;
-
-   stepItems.forEach((item, i) => {
-  item.classList.remove('active', 'pulse');
-  if (i === stepIndex) {
-    item.classList.add('active', 'pulse');
-  }
-});
-
+    setActiveStep(index - 1); // 对应步骤条高亮
   } else {
     stepsBar.classList.remove('show');
   }
