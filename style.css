@@ -392,10 +392,10 @@ h1, h2, h3 {
   }
 
   /* 白色卡片 */
-  .card {
+  card {
   width: 94vw;
   max-width: 94vw;
-  padding: 64px 20px 44px 20px;  /* ❗左右 20 才舒服 */
+  padding: 80px 20px 44px 20px;
   border-radius: 22px;
 }
 .option {
@@ -412,7 +412,7 @@ padding: 8px 8px 12px;
     display: flex;
     flex-direction: row;
     justify-content: center;
-    gap: 10px;
+    gap: 14px;
 
     width: 100%;
     margin-bottom: 18px;     /* 与标题拉开距离 */
@@ -442,7 +442,7 @@ padding: 8px 8px 12px;
   .page h1 {
     font-size: 20px;
     margin-top: 10px;
-    margin-bottom: 28px;
+    margin-bottom: 34px;
     line-height: 1.4;
   }
 
@@ -465,7 +465,7 @@ padding: 8px 8px 12px;
   }
 
   .option img {
-    height: 150px;
+    height: 128px;
     border-radius: 12px;
   }
 
