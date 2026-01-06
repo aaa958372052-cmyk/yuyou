@@ -80,23 +80,16 @@ body {
    步骤条（卡片内左侧滑入）
 ====================== */
 .steps-container {
-  position: absolute;
-  top: 50%;
-  left: 0;
-
-  transform: translate(-65%, -50%);  /* 🔴 关键：让它“压出白框” */
   display: flex;
-  flex-direction: column;
-  gap: 22px;
-
   opacity: 0;
-  transition: all 0.45s ease;
-  pointer-events: none; /* 防止挡按钮 */
+  transform: translate(-110%, -50%);
+  transition: all 0.4s ease;
+  pointer-events: none;
 }
 
 .steps-container.show {
   opacity: 1;
-  transform: translate(-35%, -50%);  /* 滑出来一点点 */
+  transform: translate(-24px, -50%);
   pointer-events: auto;
 }
 
