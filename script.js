@@ -21,12 +21,14 @@ function showPage(index) {
    控制步骤条显示 / 高亮
 ====================== */
 function handleStepsBar(index) {
+  // 默认先隐藏
+  stepsBar.classList.remove('show');
 
-  // 只在 6-9 显示（胸 / 年龄 / 臀 / 姿势）
+  // 只在 6-9 显示
   if (index >= 6 && index <= 9) {
     stepsBar.classList.add('show');
 
-    const stepIndex = index - 6; // 0-3
+    const stepIndex = index - 6;
 
     stepItems.forEach((item, i) => {
       item.classList.remove('active', 'bounce');
@@ -34,9 +36,6 @@ function handleStepsBar(index) {
         item.classList.add('active', 'bounce');
       }
     });
-
-  } else {
-    stepsBar.classList.remove('show');
   }
 }
 
@@ -104,9 +103,10 @@ document.addEventListener("DOMContentLoaded", () => {
     else p.classList.remove('active');
   });
 
-  // 初始强制隐藏步骤条
+  // 强制隐藏步骤条
   stepsBar.classList.remove('show');
 });
+
 /* ======================
    TG 跳转
 ====================== */
