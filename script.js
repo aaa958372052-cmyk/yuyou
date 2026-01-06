@@ -26,32 +26,24 @@ function nextPage() {
    进入挑选女孩加载页
 ====================== */
 function startSelection() {
-  // 先进入《进入挑选女孩环节》加载页
-  showPage(currentPage + 1);
+  showPage(currentPage + 1); // 进入加载页
+
+  // 显示步骤条（只在图片选择阶段用）
+  stepsBar.style.display = 'flex';
+  stepsBar.classList.add('show');
 
   const bar = document.getElementById('enterProgressBar');
 
   if (bar) {
     bar.style.width = '0%';
+    setTimeout(() => bar.style.width = '100%', 80);
 
     setTimeout(() => {
-      bar.style.width = '100%';
-    }, 100);
+      showPage(currentPage + 1); // 进入胸部选择页
 
-    // 红条跑完之后
-    setTimeout(() => {
-      // 👉 先进入胸部选择页
-      showPage(currentPage + 1);
-
-      // 👉 再滑出步骤条（此时才出现）
-      if (stepsBar) {
-        stepsBar.classList.add('show');
-      }
-
-      // 👉 高亮第一项
+      // 高亮第一个步骤
       steps.forEach(s => s.classList.remove('active'));
-      if (steps[0]) steps[0].classList.add('active');
-
+      steps[0].classList.add('active');
     }, 2600);
   }
 }
