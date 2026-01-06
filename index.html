@@ -19,28 +19,28 @@
     <!-- 左侧步骤条（在卡片里面） -->
     <div class="steps-container" id="stepsBar">
 
-  <div class="step active">
+  <div class="step" data-step="0">
     <div class="step-title">胸部</div>
     <div class="step-thumb">
       <img src="images/home1.jpg">
     </div>
   </div>
 
-  <div class="step">
+  <div class="step" data-step="1">
     <div class="step-title">年龄</div>
     <div class="step-thumb">
       <img src="images/home2.jpg">
     </div>
   </div>
 
-  <div class="step">
+  <div class="step" data-step="2">
     <div class="step-title">臀部</div>
     <div class="step-thumb">
       <img src="images/home3.jpg">
     </div>
   </div>
 
-  <div class="step">
+  <div class="step" data-step="3">
     <div class="step-title">姿势</div>
     <div class="step-thumb">
       <img src="images/home5.jpg">
@@ -48,8 +48,10 @@
   </div>
 
 </div>
+
+</div>
     <!-- 0 -->
-    <div class="page active">
+    <div class="page" data-page="0">
       <h1>温馨提醒</h1>
       <p class="desc">
         你即将看到当地寻找约会或兼职的女孩，您是否同意不泄露女孩隐私？
@@ -62,7 +64,7 @@
     </div>
 
     <!-- 1 -->
-    <div class="page">
+    <div class="page" data-page="1">
       <h1>1. 你同意对女性的身份保密吗？</h1>
       <div class="btns">
         <button class="btn btn-black" onclick="nextPage()">同意</button>
@@ -71,7 +73,7 @@
     </div>
 
     <!-- 2 -->
-    <div class="page">
+    <div class="page" data-page="2">
       <h1>2. 这个网站只用于约炮，不是约会，你接受这个吗？</h1>
       <div class="btns">
         <button class="btn btn-black" onclick="nextPage()">接受</button>
@@ -80,7 +82,7 @@
     </div>
 
     <!-- 3 -->
-    <div class="page">
+    <div class="page" data-page="3">
       <h1>3. 发生性关系时，同意使用避孕措施吗？</h1>
       <div class="btns">
         <button class="btn btn-black" onclick="nextPage()">同意</button>
@@ -89,7 +91,7 @@
     </div>
 
     <!-- 4 -->
-    <div class="page">
+    <div class="page" data-page="4">
       <h1>4. 你至少 24 岁吗？</h1>
       <div class="btns">
         <button class="btn btn-black" onclick="startSelection()">是</button>
@@ -98,7 +100,7 @@
     </div>
   
     <!-- 过渡加载页 -->
-<div class="page" id="enterLoadingPage">
+<div class="page" data-page="5" id="enterLoadingPage">
   <h1>《进入挑选女孩环节》</h1>
   <p class="desc">请认真对待，以便系统推荐</p>
 
@@ -108,7 +110,7 @@
 </div>
 
     <!-- 胸 -->
-    <div class="page" data-step="0">
+    <div class="page" data-page="6">
       <h1>什么样的胸部使你兴奋？</h1>
       <div class="grid">
         <div class="option" onclick="selectOption(this)"><img src="images/chest1.jpg"></div>
@@ -119,7 +121,7 @@
     </div>
 
     <!-- 年龄 -->
-    <div class="page" data-step="1">
+    <div class="page" data-page="7">
       <h1>什么样的年龄最适合你？</h1>
       <div class="grid">
         <div class="option" onclick="selectOption(this)"><img src="images/age1.jpg"></div>
@@ -130,7 +132,7 @@
     </div>
 
     <!-- 臀 -->
-    <div class="page" data-step="2">
+    <div class="page" data-page="8">
       <h1>喜欢什么样的臀部？</h1>
       <div class="grid">
         <div class="option" onclick="selectOption(this)"><img src="images/hip1.jpg"></div>
@@ -141,7 +143,7 @@
     </div>
 
     <!-- 姿势 -->
-    <div class="page" data-step="3">
+    <div class="page" data-page="9">
       <h1>什么样的姿势使你兴奋？</h1>
       <div class="grid">
         <div class="option" onclick="selectOption(this)"><img src="images/pose1.gif"></div>
@@ -152,7 +154,7 @@
     </div>
 
     <!-- loading -->
-    <div class="page">
+    <div class="page" data-page="10">
       <h1>系统匹配中…</h1>
       <div class="bar-container">
         <div class="bar-fill" id="progressBar"></div>
@@ -160,7 +162,7 @@
     </div>
 
     <!-- final -->
-    <div class="page">
+   <div class="page" data-page="11">
       <h1 style="color:#ff3b30">恭喜！</h1>
       <h3>已解锁访问权限</h3>
       <p class="desc">你所在地区有 <b>75 位</b> 女性正在等待联系您即将获得附近性感女孩的联系方式。准备好避孕套，您将使用它们！</p>
