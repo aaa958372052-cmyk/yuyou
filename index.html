@@ -1,1 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>验证系统</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- 背景层（不要删） -->
+<div class="bg-wrap">
+  <div class="bg-track"></div>
+</div>
+
+<div class="wrapper">
+  <div class="card">
+
+    <!-- 左侧步骤条（在卡片里面） -->
+    <div class="steps-container" id="stepsBar">
+      <div class="step active">胸部</div>
+      <div class="step">年龄</div>
+      <div class="step">臀部</div>
+      <div class="step">姿势</div>
+    </div>
+
+    <!-- 0 -->
+    <div class="page active">
+      <h1>温馨提醒</h1>
+      <p class="desc">
+        你即将看到当地寻找约会或兼职的女孩，您是否同意不泄露女孩隐私？
+      </p>
+      <p class="sub-desc">约会之前，我们需要问几个简单问题</p>
+      <div class="btns">
+        <button class="btn btn-black" onclick="nextPage()">好的</button>
+        <button class="btn btn-white">拒绝</button>
+      </div>
+    </div>
+
+    <!-- 1 -->
+    <div class="page">
+      <h1>1. 你同意对女性的身份保密吗？</h1>
+      <div class="btns">
+        <button class="btn btn-black" onclick="nextPage()">同意</button>
+        <button class="btn btn-white">不同意</button>
+      </div>
+    </div>
+
+    <!-- 2 -->
+    <div class="page">
+      <h1>2. 这个网站只用于约炮，不是约会，你接受这个吗？</h1>
+      <div class="btns">
+        <button class="btn btn-black" onclick="nextPage()">接受</button>
+        <button class="btn btn-white">不接受</button>
+      </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="page">
+      <h1>3. 发生性关系时，同意使用避孕措施吗？</h1>
+      <div class="btns">
+        <button class="btn btn-black" onclick="nextPage()">同意</button>
+        <button class="btn btn-white">不同意</button>
+      </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="page">
+      <h1>4. 你至少 24 岁吗？</h1>
+      <div class="btns">
+        <button class="btn btn-black" onclick="startSelection()">是</button>
+        <button class="btn btn-white">不是</button>
+      </div>
+    </div>
+  
+    <!-- 过渡加载页 -->
+<div class="page" id="enterLoadingPage">
+  <h1>《进入挑选女孩环节》</h1>
+  <p class="desc">请认真对待，以便系统推荐</p>
+
+  <div class="bar-container">
+    <div class="bar-fill" id="enterProgressBar"></div>
+  </div>
+</div>
+
+    <!-- 胸 -->
+    <div class="page" data-step="0">
+      <h1>什么样的胸部使你兴奋？</h1>
+      <div class="grid">
+        <div class="option" onclick="selectOption(this)"><img src="images/chest1.jpg"></div>
+        <div class="option" onclick="selectOption(this)"><img src="images/chest2.jpg"></div>
+        <div class="option" onclick="selectOption(this)"><img src="images/chest3.jpg"></div>
+        <div class="option" onclick="selectOption(this)"><img src="images/chest4.jpg"></div>
+      </div>
+    </div>
+
+    <!-- 年龄 -->
+    <div class="page" data-step="1">
+      <h1>什么样的年龄最适合你？</h1>
+      <div class="grid">
+        <div class="option" onclick="selectOption(this)"><img src="images/age1.jpg"></div>
+        <div class="option" onclick="selectOption(this)"><img src="images/age2.jpg"></div>
+        <div class="option" onclick="selectOption(this)"><img src="images/age3.jpg"></div>
+        <div class="option" onclick="selectOption(this)"><img src="images/age4.jpg"></div>
+      </div>
+    </div>
+
+    <!-- 臀 -->
+    <div class="page" data-step="2">
+      <h1>喜欢什么样的臀部？</h1>
+      <div class="grid">
+        <div class="option" onclick="selectOption(this)"><img src="images/hip1.jpg"></div>
+        <div class="option" onclick="selectOption(this)"><img src="images/hip2.jpg"></div>
+        <div class="option" onclick="selectOption(this)"><img src="images/hip3.jpg"></div>
+        <div class="option" onclick="selectOption(this)"><img src="images/hip4.jpg"></div>
+      </div>
+    </div>
+
+    <!-- 姿势 -->
+    <div class="page" data-step="3">
+      <h1>什么样的姿势使你兴奋？</h1>
+      <div class="grid">
+        <div class="option" onclick="selectOption(this)"><img src="images/pose1.gif"></div>
+        <div class="option" onclick="selectOption(this)"><img src="images/pose2.gif"></div>
+        <div class="option" onclick="selectOption(this)"><img src="images/pose3.gif"></div>
+        <div class="option" onclick="selectOption(this)"><img src="images/pose4.gif"></div>
+      </div>
+    </div>
+
+    <!-- loading -->
+    <div class="page">
+      <h1>系统匹配中…</h1>
+      <div class="bar-container">
+        <div class="bar-fill" id="progressBar"></div>
+      </div>
+    </div>
+
+    <!-- final -->
+    <div class="page">
+      <h1 style="color:#ff3b30">恭喜！</h1>
+      <h3>已解锁访问权限</h3>
+      <p class="desc">你所在地区有 <b>75 位</b> 女性正在等待联系您即将获得附近性感女孩的联系方式。准备好避孕套，您将使用它们！</p>
+      <div class="btns">
+       <button class="btn btn-red" onclick="tgJump()">立即联系她们</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
 
