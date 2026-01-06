@@ -382,85 +382,41 @@ h1, h2, h3 {
 ====================== */
 @media (max-width: 768px) {
 
-  body {
-    background: #7b7b7b;
-  }
-
   .wrapper {
-    padding-top: 40px;
-    padding-bottom: 60px;
+    padding-top: 140px;
+    padding-bottom: 90px;
   }
 
-  /* 白色卡片 = 手机浮层感核心 */
   .card {
     width: 94vw;
     max-width: 94vw;
-    padding: 26px 14px 34px 14px;
-    border-radius: 20px;
-  }
-
-  /* 步骤条改为顶部横排 */
-  .steps-container {
-    position: relative;
-    top: auto;
-    left: auto;
-    transform: none;
-    flex-direction: row;
-    justify-content: center;
-    margin-bottom: 18px;
-    gap: 10px;
-  }
-
-  .step-item {
-    padding: 6px 10px;
-    gap: 6px;
-  }
-
-  .step-icon {
-    width: 34px;
-    height: 34px;
-  }
-
-  .step-text {
-    font-size: 12px;
-  }
-
-  /* 正文居中 */
-  .page {
-    max-width: 100%;
-    margin: 0 auto;
-    text-align: center;
+    padding: 42px 20px 48px 20px;
+    border-radius: 22px;
   }
 
   .page h1 {
-    font-size: 20px;
-    margin-bottom: 16px;
+    margin-top: 20px;
+    margin-bottom: 36px;
+    line-height: 1.4;
   }
 
   .desc {
-    font-size: 15px;
-    margin-bottom: 18px;
+    margin-bottom: 24px;
+    line-height: 1.7;
   }
 
-  /* 图片网格：2列是王道 */
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+  .sub-desc {
+    margin-bottom: 26px;
+    line-height: 1.6;
   }
 
-  .option img {
-    height: 150px;
-    border-radius: 12px;
+  .button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-top: 24px;
   }
 
-  /* 图片下方文字 */
-  .option-text {
-    font-size: 15px;
-    font-weight: 700;
-    margin-top: 6px;
-  }
-
-  /* 按钮全宽 */
   .btn {
     width: 100%;
     padding: 14px 0;
