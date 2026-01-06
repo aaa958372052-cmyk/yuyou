@@ -81,25 +81,23 @@ body {
 ====================== */
 .steps-container {
   position: absolute;
-  left: 0;
+  left: 24px;
   top: 50%;
-  transform: translate(-100%, -50%);
+  transform: translateY(-50%);
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 18px;
 
   opacity: 0;
-  transition: all 0.35s ease;
+  transition: all 0.3s ease;
   pointer-events: none;
-  z-index: 999;
+  z-index: 50;
 }
 
 .steps-container.show {
   opacity: 1;
-  transform: translate(-88%, -50%);
   pointer-events: auto;
 }
-
 
 /* ======================
    页面切换
@@ -373,4 +371,5 @@ h1, h2, h3 {
 }
 .card {
   position: relative;
+  padding: 56px 60px 68px 120px; /* 左边 120px 就是给步骤条留的 */
 }
