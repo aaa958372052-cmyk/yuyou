@@ -357,15 +357,16 @@ h1, h2, h3 {
 }
 
 /* 跳动动画 */
-@keyframes stepPulse {
+@keyframes stepBounce {
   0%   { transform: scale(1); }
-  40%  { transform: scale(1.12); }
-  70%  { transform: scale(0.97); }
+  25%  { transform: scale(1.18); }
+  50%  { transform: scale(0.95); }
+  75%  { transform: scale(1.08); }
   100% { transform: scale(1); }
 }
 
-.step-item.pulse {
-  animation: stepPulse 0.4s cubic-bezier(.4,0,.2,1);
+.step-item.bounce {
+  animation: stepBounce 0.4s ease;
 }
 #stepsBar {
   display: none !important;
