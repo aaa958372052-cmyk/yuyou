@@ -67,7 +67,7 @@ body {
   border-radius: 28px;
   box-shadow: 0 40px 120px rgba(0,0,0,0.35);
 
-  padding: 56px 60px 68px 60px;
+  padding: 72px 16px 44px 16px;
   display: flex;
   flex-direction: column;   /* ⭐ 补上 */
   align-items: center;      /* ⭐ 补上 */
@@ -95,7 +95,7 @@ body {
   position: absolute;
   left: 28px;
   top: 50%;
-  transform: translateY(-50%);   /* ⭐ 只Y轴，不要X轴 */
+  margin-top: -80px;   /* ⭐ 只Y轴，不要X轴 */
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -382,55 +382,103 @@ h1, h2, h3 {
 ====================== */
 @media (max-width: 768px) {
 
+  /* 整体上下留白 */
   .wrapper {
-  position: relative;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  padding-top: 140px;
-  padding-bottom: 200px;
-  overflow-x: hidden; /* 防止横向溢出 */
-}
+    padding-top: 90px;
+    padding-bottom: 80px;
+  }
 
+  /* 白色卡片 */
   .card {
-  position: relative;
-  width: 100%;
-  max-width: 92vw; /* 保证卡片宽度不超过屏幕宽度 */
-  background: rgba(255,255,255,0.97);
-  border-radius: 28px;
-  box-shadow: 0 40px 120px rgba(0,0,0,0.35);
-  padding: 56px 60px 68px 60px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+    width: 94vw;
+    max-width: 94vw;
+    padding: 56px 16px 48px 16px;   /* 顶部加高 = 防止顶住步骤条 */
+    border-radius: 22px;
+  }
+
+  /* ===== 步骤条：从左悬浮 → 顶部横排（关键） ===== */
+  .steps-container {
+    position: relative;      /* ❗ 取消 absolute */
+    left: auto;
+    top: auto;
+    transform: none;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+
+    width: 100%;
+    margin-bottom: 18px;     /* 与标题拉开距离 */
+  }
+
+  .step-item {
+    padding: 6px 10px;
+    gap: 6px;
+  }
+
+  .step-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .step-text {
+    font-size: 12px;
+  }
+
+  /* ===== 标题与正文 ===== */
+  .page {
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
+  }
 
   .page h1 {
-    margin-top: 20px;
-    margin-bottom: 36px;
+    font-size: 20px;
+    margin-top: 10px;
+    margin-bottom: 28px;
     line-height: 1.4;
   }
 
   .desc {
-    margin-bottom: 24px;
+    font-size: 15px;
+    margin-bottom: 22px;
     line-height: 1.7;
   }
 
   .sub-desc {
-    margin-bottom: 26px;
+    font-size: 14px;
+    margin-bottom: 24px;
     line-height: 1.6;
   }
 
+  /* ===== 图片网格：2列 ===== */
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .option img {
+    height: 150px;
+    border-radius: 12px;
+  }
+
+  .option-text {
+    font-size: 14px;
+    margin-top: 6px;
+  }
+
+  /* ===== 按钮 ===== */
   .button-group {
     display: flex;
     flex-direction: column;
     gap: 18px;
-    margin-top: 24px;
+    margin-top: 26px;
   }
 
   .btn {
-  width: 100%;  /* 按钮全宽 */
-  padding: 14px 0;
-  font-size: 16px;
-}
+    width: 100%;
+    padding: 14px 0;
+    font-size: 16px;
+  }
 }
