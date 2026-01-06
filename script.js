@@ -3,18 +3,46 @@ let currentPage = 0;
 const pages = document.querySelectorAll('.page');
 const steps = document.querySelectorAll('.step');
 const stepsBar = document.getElementById('stepsBar');
-
 /* ======================
    显示指定页
 ====================== */
 function showPage(index) {
   pages.forEach(p => p.classList.remove('active'));
-  if (pages[index]) {
-    pages[index].classList.add('active');
+
+  const target = [...pages].find(p => parseInt(p.dataset.page) === index);
+  if (target) {
+    target.classList.add('active');
     currentPage = index;
   }
-}
 
+  // ===== 步骤条显示区间控制 =====
+  if (index >= 6 && index <= 9) {
+    stepsBar.classList.add('show');
+    syncStep(index);
+  } else {
+    stepsBar.classList.remove('show');
+  }
+
+  // 进入系统匹配自动跑进度
+  if (index === 10) {
+    startMatchLoading();
+  }
+}
+function syncStep(pageIndex) {
+  const stepIndex = pageIndex - 6; // 6=胸
+
+  steps.forEach((s, i) => {
+    s.classList.remove('active', 'bounce');
+
+    if (i === stepIndex) {
+      s.classList.add('active', 'bounce');
+
+      setTimeout(() => {
+        s.classList.remove('bounce');
+      }, 400);
+    }
+  });
+}
 /* ======================
    普通下一页
 ====================== */
@@ -26,86 +54,47 @@ function nextPage() {
    进入挑选女孩加载页
 ====================== */
 function startSelection() {
-  showPage(currentPage + 1); // 进入加载页
-
-  // 显示步骤条（只在图片选择阶段用）
-  stepsBar.style.display = 'flex';
-  stepsBar.classList.add('show');
+  showPage(5); // 进入过渡加载
 
   const bar = document.getElementById('enterProgressBar');
+  if (!bar) return;
 
-  if (bar) {
-    bar.style.width = '0%';
-    setTimeout(() => bar.style.width = '100%', 80);
+  bar.style.width = '0%';
+  setTimeout(() => bar.style.width = '100%', 80);
 
-    setTimeout(() => {
-      showPage(currentPage + 1); // 进入胸部选择页
-
-      // 高亮第一个步骤
-      steps.forEach(s => s.classList.remove('active'));
-      steps[0].classList.add('active');
-    }, 2600);
-  }
+  setTimeout(() => {
+    showPage(6); // 进入胸部选择
+  }, 2600);
 }
 /* ======================
    图片选择
 ====================== */
 function selectOption(el) {
   const parent = el.parentElement;
-
   parent.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
   el.classList.add('selected');
 
+  const now = currentPage;
+
   setTimeout(() => {
-    showPage(currentPage + 1);
-
-    const stepIdx = pages[currentPage].getAttribute('data-step');
-
-    if (stepIdx !== null) {
-      // 普通步骤页 → 切换高亮
-      steps.forEach(s => s.classList.remove('active'));
-      if (steps[stepIdx]) steps[stepIdx].classList.add('active');
-    } else {
-      // ===== 进入「系统匹配中」加载页 =====
-
-      // ❗❗❗ 这里立刻隐藏步骤条
-      stepsBar.classList.remove('show');
-      stepsBar.style.display = 'none';
-
-      const bar = document.getElementById('progressBar');
-      if (bar) {
-        bar.style.width = '0%';
-        setTimeout(() => bar.style.width = '100%', 80);
-
-        setTimeout(() => {
-          showPage(currentPage + 1); // 最终结果页（步骤条继续不显示）
-        }, 2600);
-      }
-    }
-  }, 350);
+    showPage(now + 1);
+  }, 300);
 }
+function startMatchLoading() {
+  const bar = document.getElementById('progressBar');
+  if (!bar) return;
 
+  bar.style.width = '0%';
+  setTimeout(() => bar.style.width = '100%', 80);
+
+  setTimeout(() => {
+    showPage(11); // 最终页
+  }, 2600);
+}
 
 /* ======================
    TG 跳转
 ====================== */
-function tgJump() {
-  // 这里换成你的 TG 链接
-  window.location.href = "https://t.me/your_username";
-}
-
-/* ======================
-   初始化
-====================== */
-document.addEventListener("DOMContentLoaded", () => {
-  pages.forEach((p, i) => {
-    if (i === 0) p.classList.add('active');
-    else p.classList.remove('active');
-  });
-
-  if (stepsBar) stepsBar.classList.remove('show');
-});
-// 多个 TG 轮询池
 const tgList = [
   "https://t.me/xiaoxiao58410",
   "https://t.me/xiaoxiao58410",
@@ -113,25 +102,21 @@ const tgList = [
   "https://t.me/xiaoxiao58410"
 ];
 
-// 轮询指针
 let tgIndex = 0;
 
 function tgJump() {
-  // 取当前 TG
   const url = tgList[tgIndex];
+  tgIndex = (tgIndex + 1) % tgList.length;
 
-  // 指针前进（到尾巴回到 0）
-  tgIndex++;
-  if (tgIndex >= tgList.length) {
-    tgIndex = 0;
-  }
-
-  // 如果你有像素，可以加埋点
   if (typeof fbq !== "undefined") {
     fbq('track', 'Contact');
     fbq('track', 'CompleteRegistration');
   }
 
-  // 跳转
   window.open(url, "_blank");
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  showPage(0);
+});
+
