@@ -1,1 +1,319 @@
+/* ======================
+   全局
+====================== */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;
+  background: #7b7b7b;
+  overflow-x: hidden;
+}
+
+/* ======================
+   背景滚动长图
+====================== */
+.bg-wrap {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  z-index: -2;
+}
+
+.bg-track {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 853px;
+  height: 25548px;
+  margin-left: -426.5px;
+
+  background-image: url("images/bg.jpg"), url("images/bg.jpg");
+  background-repeat: no-repeat;
+  background-position: center top, center 12774px;
+  background-size: 853px 12774px;
+
+  animation: bgScroll 80s linear infinite;
+}
+
+@keyframes bgScroll {
+  from { top: 0; }
+  to   { top: -12774px; }
+}
+
+/* ======================
+   主体容器
+====================== */
+.wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 140px;
+  padding-bottom: 200px;
+}
+
+/* ======================
+   卡片本体
+====================== */
+.card {
+  position: relative;
+  width: 720px;
+  max-width: 92vw;
+
+  background: rgba(255,255,255,0.94);
+  border-radius: 28px;
+  box-shadow: 0 40px 120px rgba(0,0,0,0.35);
+
+  padding: 56px 60px 68px 120px; /* 左边给步骤条留空间 */
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* ======================
+   步骤条（卡片内左侧滑入）
+====================== */
+.steps-container {
+  position: absolute;
+  left: 0;
+  top: 50%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+
+  transform: translate(-120%, -50%);
+  opacity: 0;
+
+  transition: all 0.45s ease;
+  pointer-events: none;
+}
+
+.steps-container.show {
+  transform: translate(24px, -50%);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.step {
+  font-size: 14px;
+  color: #aaa;
+  white-space: nowrap;
+}
+
+.step.active {
+  color: #000;
+  font-weight: 600;
+}
+
+/* ======================
+   页面切换
+====================== */
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+
+/* ======================
+   标题 / 文本
+====================== */
+h1, h2, h3 {
+  text-align: center;
+}
+
+.page h1 {
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: #111;
+  margin-bottom: 26px;
+}
+
+.desc {
+  font-size: 20px;
+  line-height: 1.7;
+  color: #444;
+  margin-bottom: 30px;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.sub-desc {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #888;
+  margin-bottom: 36px;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.result-text, p {
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ======================
+   按钮
+====================== */
+.btn {
+  padding: 18px 46px;
+  border-radius: 999px;
+  font-size: 19px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.15s ease;
+}
+
+.btn-black {
+  background: #111;
+  color: #fff;
+}
+
+.btn-white {
+  background: #fff;
+  color: #000;
+  border: 1px solid #ddd;
+}
+
+.btn-red {
+  background: #ff3b30;
+  color: #fff;
+}
+
+/* 点击反馈 */
+.btn:hover {
+  filter: brightness(1.05);
+}
+
+.btn:active {
+  transform: scale(0.96);
+  filter: brightness(0.95);
+}
+
+.btn-black:active {
+  background: #000;
+  box-shadow: 0 0 0 6px rgba(0,0,0,0.08);
+}
+
+.btn-white:active {
+  background: #f2f2f2;
+  box-shadow: 0 0 0 6px rgba(0,0,0,0.08);
+}
+
+/* ======================
+   图片选项
+====================== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 26px;
+  margin-top: 30px;
+}
+
+.option {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.option img {
+  width: 100%;
+  height: 152px;
+  object-fit: cover;
+  display: block;
+}
+
+/* 默认边框 */
+.option::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  border: 3px solid transparent;
+  transition: border-color 0.18s ease;
+  pointer-events: none;
+}
+
+/* 悬浮 */
+.option:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+/* 选中 */
+.option.selected::after {
+  border-color: #ff3b30;
+  box-shadow: 0 0 0 2px rgba(255,59,48,0.25);
+}
+
+.option.selected {
+  animation: selectFlash 0.25s ease;
+}
+
+@keyframes selectFlash {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(255,59,48,0.0);
+  }
+  50% {
+    transform: scale(0.97);
+    box-shadow: 0 0 0 6px rgba(255,59,48,0.18);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 2px rgba(255,59,48,0.25);
+  }
+}
+
+/* ======================
+   进度条
+====================== */
+.bar-container {
+  width: 100%;
+  height: 12px;
+  background: #e5e5e5;
+  border-radius: 999px;
+  overflow: hidden;
+  margin-top: 36px;
+}
+
+.bar-fill {
+  width: 0%;
+  height: 100%;
+  background: #ff3b30;
+  border-radius: 999px;
+  transition: width 2.4s linear;
+}
+/* 强制主内容在最上层 */
+.wrapper {
+  position: relative;
+  z-index: 100;
+}
+
+.card {
+  position: relative;
+  z-index: 200;
+}
+
+/* 步骤条在最上层 */
+.steps-container {
+  position: absolute;
+  z-index: 300;
+  pointer-events: auto;
+}
 
