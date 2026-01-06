@@ -8,18 +8,18 @@ const stepItems = document.querySelectorAll('.step-item');
 ====================== */
 function showPage(index) {
   pages.forEach(p => p.classList.remove('active'));
+
   if (pages[index]) {
     pages[index].classList.add('active');
     currentPage = index;
     handleStepsBar(index);
   }
 }
-
 /* ======================
    控制步骤条显示 / 高亮
 ====================== */
 function handleStepsBar(pageIndex) {
-  // 6-9 是胸 / 年龄 / 臀 / 姿势
+  // 只在 6-9 显示
   if (pageIndex >= 6 && pageIndex <= 9) {
     stepsBar.classList.add('show');
 
@@ -99,10 +99,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (i === 0) p.classList.add('active');
     else p.classList.remove('active');
   });
-
-  // 初始隐藏步骤条
-  stepsBar.style.display = 'none';
-  stepsBar.classList.remove('show');
 });
 
 /* ======================
