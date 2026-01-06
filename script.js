@@ -52,63 +52,37 @@ function startSelection() {
 ====================== */
 function selectOption(el) {
   const parent = el.parentElement;
-  const img = el.querySelector('img');
 
-  // 1. 当前页 index
-  const currentStepIndex = pages[currentPage].getAttribute('data-step');
-
-  // 2. 取消本组其它选中
   parent.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
   el.classList.add('selected');
 
-  // 3. ===== 左侧步骤条处理 =====
-  if (currentStepIndex !== null) {
-    const stepEl = document.querySelectorAll('.step')[currentStepIndex];
-    const thumbImg = stepEl.querySelector('.step-thumb img');
-
-    // 替换缩略图
-    if (thumbImg && img) {
-      thumbImg.src = img.src;
-    }
-
-    // 高亮切换
-    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-    stepEl.classList.add('active');
-
-    // 跳动效果
-    stepEl.classList.remove('bounce');
-    void stepEl.offsetWidth; // 强制重绘
-    stepEl.classList.add('bounce');
-  }
-
-  // 4. 延迟进入下一页（保持原版节奏）
   setTimeout(() => {
-    pages[currentPage].classList.remove('active');
-    currentPage++;
+    showPage(currentPage + 1);
 
-    if (!pages[currentPage]) return;
+    const stepIdx = pages[currentPage].getAttribute('data-step');
 
-    pages[currentPage].classList.add('active');
-
-    const nextStepIdx = pages[currentPage].getAttribute('data-step');
-
-    // 如果是下一组图片，高亮下一项
-    if (nextStepIdx !== null) {
-      document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-      if (document.querySelectorAll('.step')[nextStepIdx]) {
-        document.querySelectorAll('.step')[nextStepIdx].classList.add('active');
-      }
+    if (stepIdx !== null) {
+      // 普通步骤页 → 切换高亮
+      steps.forEach(s => s.classList.remove('active'));
+      if (steps[stepIdx]) steps[stepIdx].classList.add('active');
     } else {
-      // 进入最终加载页
+      // ===== 进入「系统匹配中」加载页 =====
+
+      // ❗❗❗ 这里立刻隐藏步骤条
+      stepsBar.classList.remove('show');
+      stepsBar.style.display = 'none';
+
       const bar = document.getElementById('progressBar');
       if (bar) {
         bar.style.width = '0%';
         setTimeout(() => bar.style.width = '100%', 80);
-        setTimeout(() => nextPage(), 2600);
+
+        setTimeout(() => {
+          showPage(currentPage + 1); // 最终结果页（步骤条继续不显示）
+        }, 2600);
       }
     }
-
-  }, 380);
+  }, 350);
 }
 
 
