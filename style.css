@@ -367,3 +367,9 @@ h1, h2, h3 {
 .step-item.pulse {
   animation: stepPulse 0.4s cubic-bezier(.4,0,.2,1);
 }
+#stepsBar {
+  display: none !important;
+}
+#stepsBar.show {
+  display: flex !important;
+}
