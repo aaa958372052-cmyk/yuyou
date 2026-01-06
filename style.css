@@ -57,7 +57,7 @@ body {
 }
 
 /* ======================
-   卡片本体
+   卡片本体（真正几何居中）
 ====================== */
 .card {
   position: relative;
@@ -66,46 +66,48 @@ body {
   background: rgba(255,255,255,0.97);
   border-radius: 28px;
   box-shadow: 0 40px 120px rgba(0,0,0,0.35);
-  padding: 56px 60px 68px 60px;  /* 关键：左右对称 */
+
+  padding: 56px 60px 68px 60px;   /* ⭐ 左右必须一样 */
   display: flex;
-  flex-direction: column;
-  align-items: center;          /* ⭐ 核心 */
+  justify-content: center;       /* ⭐ 横向居中 */
 }
 
+/* ======================
+   正文容器（灵魂：限制宽度 + 真居中）
+====================== */
 .page {
   width: 100%;
   max-width: 520px;
+  margin: 0 auto;                /* ⭐ 真居中关键 */
   text-align: center;
-}
-/* ======================
-   左侧步骤条（原版贴边效果）
-====================== */
-.steps-container {
-  position: absolute;
-  left: 32px;
-  top: 50%;
-  transform: translate(-20px, -50%);
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  z-index: 300;
-  opacity: 0;
-  transition: all 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.2);
-}
-
-.steps-container.show {
-  transform: translate(0, -50%);
-  opacity: 1;
-}
-/* ======================
-   页面切换
-====================== */
-.page {
   display: none;
 }
 
 .page.active {
   display: block;
+}
+
+/* ======================
+   左侧步骤条（贴边悬浮，不挤正文）
+====================== */
+.steps-container {
+  position: absolute;
+  left: 28px;
+  top: 50%;
+  transform: translateY(-50%);   /* ⭐ 只Y轴，不要X轴 */
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  z-index: 300;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+}
+
+.steps-container.show {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 /* ======================
