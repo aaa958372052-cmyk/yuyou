@@ -411,3 +411,85 @@ h1, h2, h3 {
   text-align: center;
   line-height: 1.2;
 }
+@media (max-width: 768px) {
+
+  /* 1️⃣ 整体背景别乱挤 */
+  body {
+    background: #7b7b7b;
+  }
+
+  /* 2️⃣ 白色卡片真正居中 + 贴合手机 */
+  .wrapper {
+    padding-top: 60px;
+    padding-bottom: 80px;
+  }
+
+  .card {
+    width: 94vw;
+    max-width: 94vw;
+    padding: 28px 16px 36px 16px;
+    border-radius: 20px;
+  }
+
+  /* 3️⃣ 步骤条在手机上改为顶部横排 */
+  .steps-container {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 20px;
+    gap: 10px;
+  }
+
+  .step-item {
+    padding: 8px 12px;
+    gap: 6px;
+  }
+
+  .step-text {
+    font-size: 13px;
+  }
+
+  /* 4️⃣ 正文区域真居中 */
+  .page {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  .page h1 {
+    font-size: 22px;
+    margin-bottom: 18px;
+  }
+
+  .desc {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+
+  /* 5️⃣ 关键：图片网格改成 2 列 */
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  .option img {
+    height: 140px;
+    border-radius: 12px;
+  }
+
+  /* 6️⃣ 图片下方文字修复 */
+  .option-text {
+    font-size: 16px;
+    font-weight: 700;
+    margin-top: 6px;
+  }
+
+  /* 7️⃣ 按钮别太大 */
+  .btn {
+    width: 100%;
+    padding: 14px 0;
+    font-size: 17px;
+  }
+}
