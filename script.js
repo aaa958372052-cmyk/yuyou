@@ -31,15 +31,17 @@ function handleStepsBar(index) {
     const stepIndex = index - 6;
 
     stepItems.forEach((item, i) => {
-  item.classList.remove('active', 'bounce');
+      item.classList.remove('active', 'bounce');
 
-  if (i === stepIndex) {
-    setTimeout(() => {
-      item.classList.add('active', 'bounce');
-    }, 120);
-  }
-});
+      if (i === stepIndex) {
+        setTimeout(() => {
+          item.classList.add('active', 'bounce');
+        }, 120);
+      }
+    });
 
+  } // 👈 这个你原来少了
+}   // 👈 这个你原来少了
 /* ======================
    普通下一页
 ====================== */
