@@ -60,31 +60,65 @@ function startSelection() {
 ====================== */
 function selectOption(el) {
   const parent = el.parentElement;
+  const img = el.querySelector('img');
 
+  // 1. 当前页 index
+  const currentStepIndex = pages[currentPage].getAttribute('data-step');
+
+  // 2. 取消本组其它选中
   parent.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
   el.classList.add('selected');
 
+  // 3. ===== 左侧步骤条处理 =====
+  if (currentStepIndex !== null) {
+    const stepEl = document.querySelectorAll('.step')[currentStepIndex];
+    const thumbImg = stepEl.querySelector('.step-thumb img');
+
+    // 替换缩略图
+    if (thumbImg && img) {
+      thumbImg.src = img.src;
+    }
+
+    // 高亮切换
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+    stepEl.classList.add('active');
+
+    // 跳动效果
+    stepEl.classList.remove('bounce');
+    void stepEl.offsetWidth; // 强制重绘
+    stepEl.classList.add('bounce');
+  }
+
+  // 4. 延迟进入下一页（保持原版节奏）
   setTimeout(() => {
-    showPage(currentPage + 1);
+    pages[currentPage].classList.remove('active');
+    currentPage++;
 
-    const stepIdx = pages[currentPage].getAttribute('data-step');
+    if (!pages[currentPage]) return;
 
-    if (stepIdx !== null) {
-      steps.forEach(s => s.classList.remove('active'));
-      if (steps[stepIdx]) steps[stepIdx].classList.add('active');
+    pages[currentPage].classList.add('active');
+
+    const nextStepIdx = pages[currentPage].getAttribute('data-step');
+
+    // 如果是下一组图片，高亮下一项
+    if (nextStepIdx !== null) {
+      document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+      if (document.querySelectorAll('.step')[nextStepIdx]) {
+        document.querySelectorAll('.step')[nextStepIdx].classList.add('active');
+      }
     } else {
-      // 最终加载页
-      if (stepsBar) stepsBar.classList.remove('show');
-
+      // 进入最终加载页
       const bar = document.getElementById('progressBar');
       if (bar) {
         bar.style.width = '0%';
-        setTimeout(() => bar.style.width = '100%', 50);
-        setTimeout(() => showPage(currentPage + 1), 2600);
+        setTimeout(() => bar.style.width = '100%', 80);
+        setTimeout(() => nextPage(), 2600);
       }
     }
-  }, 350);
+
+  }, 380);
 }
+
 
 /* ======================
    TG 跳转
