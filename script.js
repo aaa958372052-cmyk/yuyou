@@ -2,8 +2,7 @@ let currentPage = 0;
 
 const pages = document.querySelectorAll('.page');
 const stepsBar = document.getElementById('stepsBar');
-const steps = document.querySelectorAll('.step');
-
+const stepItems = document.querySelectorAll('.step-item');
 /* ======================
    显示指定页
 ====================== */
@@ -20,24 +19,21 @@ function showPage(index) {
    控制步骤条显示 / 高亮
 ====================== */
 function handleStepsBar(pageIndex) {
-  // 胸(6) 年龄(7) 臀(8) 姿势(9) 才显示步骤条
+  // 6-9 是胸 / 年龄 / 臀 / 姿势
   if (pageIndex >= 6 && pageIndex <= 9) {
-    stepsBar.style.display = 'flex';
     stepsBar.classList.add('show');
 
-    const stepIndex = pageIndex - 6; // 6->0, 7->1, 8->2, 9->3
+    const stepIndex = pageIndex - 6;
 
-    steps.forEach((step, i) => {
-      step.classList.remove('active', 'bounce');
+    stepItems.forEach((item, i) => {
+      item.classList.remove('active', 'bounce');
       if (i === stepIndex) {
-        step.classList.add('active', 'bounce');
+        item.classList.add('active', 'bounce');
       }
     });
 
   } else {
-    // 其他页面全部隐藏
     stepsBar.classList.remove('show');
-    stepsBar.style.display = 'none';
   }
 }
 
