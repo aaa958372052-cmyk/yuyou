@@ -31,13 +31,14 @@ function handleStepsBar(index) {
     const stepIndex = index - 6;
 
     stepItems.forEach((item, i) => {
-      item.classList.remove('active', 'bounce');
-      if (i === stepIndex) {
-        item.classList.add('active', 'bounce');
-      }
-    });
+  item.classList.remove('active', 'bounce');
+
+  if (i === stepIndex) {
+    setTimeout(() => {
+      item.classList.add('active', 'bounce');
+    }, 120);
   }
-}
+});
 
 /* ======================
    普通下一页
