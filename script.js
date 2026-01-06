@@ -3,6 +3,7 @@ let currentPage = 0;
 const pages = document.querySelectorAll('.page');
 const stepsBar = document.getElementById('stepsBar');
 const stepItems = document.querySelectorAll('.step-item');
+
 /* ======================
    显示指定页
 ====================== */
@@ -15,23 +16,25 @@ function showPage(index) {
     handleStepsBar(index);
   }
 }
+
 /* ======================
    控制步骤条显示 / 高亮
 ====================== */
 function handleStepsBar(index) {
-  const stepsBar = document.getElementById('stepsBar');
 
-  // 0 = 温馨提醒
-  // 1 = 胸部
-  // 2 = 年龄
-  // 3 = 臀
-  // 4 = 姿势
-  // 5 = 系统匹配中
-  // 6 = 最终页
-
-  if (index >= 1 && index <= 4) {
+  // 只在 6-9 显示（胸 / 年龄 / 臀 / 姿势）
+  if (index >= 6 && index <= 9) {
     stepsBar.classList.add('show');
-    setActiveStep(index - 1); // 对应步骤条高亮
+
+    const stepIndex = index - 6; // 0-3
+
+    stepItems.forEach((item, i) => {
+      item.classList.remove('active', 'bounce');
+      if (i === stepIndex) {
+        item.classList.add('active', 'bounce');
+      }
+    });
+
   } else {
     stepsBar.classList.remove('show');
   }
@@ -56,7 +59,7 @@ function startSelection() {
     setTimeout(() => bar.style.width = '100%', 50);
 
     setTimeout(() => {
-      showPage(6); // 进入胸部选择页（步骤条在这里出现）
+      showPage(6); // 进入胸部页（步骤条在这里首次出现）
     }, 2600);
   }
 }
@@ -70,9 +73,10 @@ function selectOption(el) {
   el.classList.add('selected');
 
   setTimeout(() => {
-    // 如果现在是姿势页（9），下一步是系统匹配
+
+    // 如果是姿势页（9），进入系统匹配
     if (currentPage === 9) {
-      showPage(10); // 系统匹配中
+      showPage(10);
 
       const bar = document.getElementById('progressBar');
       if (bar) {
@@ -85,9 +89,9 @@ function selectOption(el) {
       }
 
     } else {
-      // 其他图片页正常 +1
       showPage(currentPage + 1);
     }
+
   }, 300);
 }
 
@@ -99,8 +103,10 @@ document.addEventListener("DOMContentLoaded", () => {
     if (i === 0) p.classList.add('active');
     else p.classList.remove('active');
   });
-});
 
+  // 初始强制隐藏步骤条
+  stepsBar.classList.remove('show');
+});
 /* ======================
    TG 跳转
 ====================== */
