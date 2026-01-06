@@ -25,12 +25,12 @@ function handleStepsBar(pageIndex) {
 
     const stepIndex = pageIndex - 6;
 
-    stepItems.forEach((item, i) => {
-      item.classList.remove('active', 'bounce');
-      if (i === stepIndex) {
-        item.classList.add('active', 'bounce');
-      }
-    });
+   stepItems.forEach((item, i) => {
+  item.classList.remove('active', 'pulse');
+  if (i === stepIndex) {
+    item.classList.add('active', 'pulse');
+  }
+});
 
   } else {
     stepsBar.classList.remove('show');
