@@ -1,48 +1,46 @@
 let currentPage = 0;
 
 const pages = document.querySelectorAll('.page');
-const steps = document.querySelectorAll('.step');
 const stepsBar = document.getElementById('stepsBar');
+const steps = document.querySelectorAll('.step');
+
 /* ======================
    显示指定页
 ====================== */
 function showPage(index) {
   pages.forEach(p => p.classList.remove('active'));
-
-  const target = [...pages].find(p => parseInt(p.dataset.page) === index);
-  if (target) {
-    target.classList.add('active');
+  if (pages[index]) {
+    pages[index].classList.add('active');
     currentPage = index;
+    handleStepsBar(index);
   }
+}
 
-  // ===== 步骤条显示区间控制 =====
-  if (index >= 6 && index <= 9) {
+/* ======================
+   控制步骤条显示 / 高亮
+====================== */
+function handleStepsBar(pageIndex) {
+  // 胸(6) 年龄(7) 臀(8) 姿势(9) 才显示步骤条
+  if (pageIndex >= 6 && pageIndex <= 9) {
+    stepsBar.style.display = 'flex';
     stepsBar.classList.add('show');
-    syncStep(index);
+
+    const stepIndex = pageIndex - 6; // 6->0, 7->1, 8->2, 9->3
+
+    steps.forEach((step, i) => {
+      step.classList.remove('active', 'bounce');
+      if (i === stepIndex) {
+        step.classList.add('active', 'bounce');
+      }
+    });
+
   } else {
+    // 其他页面全部隐藏
     stepsBar.classList.remove('show');
-  }
-
-  // 进入系统匹配自动跑进度
-  if (index === 10) {
-    startMatchLoading();
+    stepsBar.style.display = 'none';
   }
 }
-function syncStep(pageIndex) {
-  const stepIndex = pageIndex - 6; // 6=胸
 
-  steps.forEach((s, i) => {
-    s.classList.remove('active', 'bounce');
-
-    if (i === stepIndex) {
-      s.classList.add('active', 'bounce');
-
-      setTimeout(() => {
-        s.classList.remove('bounce');
-      }, 400);
-    }
-  });
-}
 /* ======================
    普通下一页
 ====================== */
@@ -51,21 +49,22 @@ function nextPage() {
 }
 
 /* ======================
-   进入挑选女孩加载页
+   进入挑选加载页
 ====================== */
 function startSelection() {
-  showPage(5); // 进入过渡加载
+  showPage(5); // 进入加载页
 
   const bar = document.getElementById('enterProgressBar');
-  if (!bar) return;
+  if (bar) {
+    bar.style.width = '0%';
+    setTimeout(() => bar.style.width = '100%', 50);
 
-  bar.style.width = '0%';
-  setTimeout(() => bar.style.width = '100%', 80);
-
-  setTimeout(() => {
-    showPage(6); // 进入胸部选择
-  }, 2600);
+    setTimeout(() => {
+      showPage(6); // 进入胸部选择页（步骤条在这里出现）
+    }, 2600);
+  }
 }
+
 /* ======================
    图片选择
 ====================== */
@@ -74,23 +73,41 @@ function selectOption(el) {
   parent.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
   el.classList.add('selected');
 
-  const now = currentPage;
-
   setTimeout(() => {
-    showPage(now + 1);
+    // 如果现在是姿势页（9），下一步是系统匹配
+    if (currentPage === 9) {
+      showPage(10); // 系统匹配中
+
+      const bar = document.getElementById('progressBar');
+      if (bar) {
+        bar.style.width = '0%';
+        setTimeout(() => bar.style.width = '100%', 50);
+
+        setTimeout(() => {
+          showPage(11); // 最终页
+        }, 2600);
+      }
+
+    } else {
+      // 其他图片页正常 +1
+      showPage(currentPage + 1);
+    }
   }, 300);
 }
-function startMatchLoading() {
-  const bar = document.getElementById('progressBar');
-  if (!bar) return;
 
-  bar.style.width = '0%';
-  setTimeout(() => bar.style.width = '100%', 80);
+/* ======================
+   初始化
+====================== */
+document.addEventListener("DOMContentLoaded", () => {
+  pages.forEach((p, i) => {
+    if (i === 0) p.classList.add('active');
+    else p.classList.remove('active');
+  });
 
-  setTimeout(() => {
-    showPage(11); // 最终页
-  }, 2600);
-}
+  // 初始隐藏步骤条
+  stepsBar.style.display = 'none';
+  stepsBar.classList.remove('show');
+});
 
 /* ======================
    TG 跳转
@@ -115,8 +132,3 @@ function tgJump() {
 
   window.open(url, "_blank");
 }
-
-document.addEventListener("DOMContentLoaded", () => {
-  showPage(0);
-});
-
