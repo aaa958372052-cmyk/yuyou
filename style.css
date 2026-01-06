@@ -80,11 +80,18 @@ body {
    步骤条（卡片内左侧滑入）
 ====================== */
 .steps-container {
-  display: flex;
-  opacity: 0;
+  position: absolute;
+  left: 0;
+  top: 50%;
   transform: translate(-110%, -50%);
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+
+  opacity: 0;
   transition: all 0.4s ease;
   pointer-events: none;
+  z-index: 300;
 }
 
 .steps-container.show {
